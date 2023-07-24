@@ -14,32 +14,40 @@ ULandscapeSplineHelperPluginBPLibrary::ULandscapeSplineHelperPluginBPLibrary(con
 
 }
 
-FLandsapeSpline ULandscapeSplineHelperPluginBPLibrary::GetLandscapeSpline(ALandscapeProxy* landscape)
+void ULandscapeSplineHelperPluginBPLibrary::GetLandscapeSpline(FLandsapeSpline& landscapeSpline, bool& success, const ALandscapeProxy* landscape)
 {
-	auto spline = landscape->GetSplinesComponent();
-	
-	// Turn segments into blueprint readable format (Kinda inefficient. Perhaps improve later)
-	auto typedSegments = TArray<UBlueprintableLandscapeSplineSegment*>();
-	for (auto segment : spline->GetSegments())
+	if(landscape)
 	{
-		auto typedSegment = NewObject<UBlueprintableLandscapeSplineSegment>();
-		typedSegment->Copy(segment);
-		typedSegments.Add(typedSegment);
-	}
+		auto spline = landscape->GetSplinesComponent();
+		if(spline)
+		{
+			// Turn segments into blueprint readable format (Kinda inefficient. Perhaps improve later)
+			auto typedSegments = TArray<UBlueprintableLandscapeSplineSegment*>();
+			for (auto segment : spline->GetSegments())
+			{
+				auto typedSegment = NewObject<UBlueprintableLandscapeSplineSegment>();
+				typedSegment->Copy(segment);
+				typedSegments.Add(typedSegment);
+			}
 	
-	// Turn points into blueprint readable format.
-	auto typedPoints = TArray<UBlueprintableLandscapeSplineControlPoint*>();
-	for (auto point : spline->GetControlPoints())
-	{
-		auto typedPoint = NewObject<UBlueprintableLandscapeSplineControlPoint>();
-		typedPoint->Copy(point);
-		typedPoints.Add(typedPoint);
-	}
+			// Turn points into blueprint readable format.
+			auto typedPoints = TArray<UBlueprintableLandscapeSplineControlPoint*>();
+			for (auto point : spline->GetControlPoints())
+			{
+				auto typedPoint = NewObject<UBlueprintableLandscapeSplineControlPoint>();
+				typedPoint->Copy(point);
+				typedPoints.Add(typedPoint);
+			}
 	
-	auto landscapeSpline = FLandsapeSpline();
-	landscapeSpline.Segments = typedSegments;
-	landscapeSpline.ControlPoints = typedPoints;
-	return landscapeSpline;
+			landscapeSpline = FLandsapeSpline();
+			landscapeSpline.Segments = typedSegments;
+			landscapeSpline.ControlPoints = typedPoints;
+			success = true;
+			return;
+		}
+		success = false;
+		return;
+	}
 }
 
 
