@@ -29,6 +29,9 @@ class ULandscapeSplineHelperPluginBPLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_UCLASS_BODY()
 
+	
+	/* Returns a representation of the splines given by the landscape. */
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Get Landscape Spline", Keywords = "LandscapeSpline"), Category = "LandscapeSplineHelper")
 	static FLandsapeSpline GetLandscapeSpline(ALandscapeProxy* landscape);
+	
 };
