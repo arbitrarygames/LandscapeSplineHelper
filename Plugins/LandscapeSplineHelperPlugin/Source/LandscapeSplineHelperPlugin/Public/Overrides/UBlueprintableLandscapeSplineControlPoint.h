@@ -4,103 +4,92 @@
 #include "UBlueprintableLandscapeSplineControlPoint.generated.h"
 
 UCLASS()
-class UBlueprintableLandscapeSplineControlPoint : public UObject
+class UBlueprintableLandscapeSplineControlPoint : public ULandscapeSplineControlPoint
 {
 	GENERATED_BODY()
 public:
 	/** Location in Landscape-space */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=LandscapeSpline)
-	FVector Location;
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSpline)
+	FVector GetRelativeLocation() {return Location;}
 
 	/** Rotation of tangent vector at this point (in landscape-space) */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=LandscapeSpline)
-	FRotator Rotation;
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSpline)
+	FRotator GetRelativeRotation() {return Rotation;}
 
+	/** Location in world space */
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSpline)
+	FVector GetWorldLocation() {return Location + WorldTransform.GetLocation();}
+
+	/** Rotation of tangent vector at this point (in world-space) */
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSpline)
+	FRotator GetWorldRotation() {return Rotation + WorldTransform.GetRotation().Rotator();}
+	
 	/** Half-Width of the spline at this point. */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=LandscapeSpline, meta = (DisplayName = "Half-Width"))
-	float Width;
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSpline, meta = (DisplayName = "Half-Width"))
+	float GetWidth() {return Width;}
 
 	/** Layer Width ratio of the spline at this point. */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = LandscapeSpline)
-	float LayerWidthRatio = 1.f;
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = LandscapeSpline)
+	float GetLayerWidthRatio() { return LayerWidthRatio; }
 
 	/** Falloff at the sides of the spline at this point. */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=LandscapeSpline)
-	float SideFalloff;
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSpline)
+	float GetSideFalloff() {return SideFalloff;}
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = LandscapeSpline, meta=(UIMin = 0, ClampMin = 0, UIMax = 1, ClampMax = 1))
-	float LeftSideFalloffFactor = 1.f;
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = LandscapeSpline, meta=(UIMin = 0, ClampMin = 0, UIMax = 1, ClampMax = 1))
+	float GetLeftSideFalloffFactor() { return LeftSideFalloffFactor; }
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = LandscapeSpline, meta = (UIMin = 0, ClampMin = 0, UIMax = 1, ClampMax = 1))
-	float RightSideFalloffFactor = 1.f;
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = LandscapeSpline, meta = (UIMin = 0, ClampMin = 0, UIMax = 1, ClampMax = 1))
+	float GetRightSideFalloffFactor() { return RightSideFalloffFactor; }
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = LandscapeSpline, meta = (UIMin = 0, ClampMin = 0, UIMax = 1, ClampMax = 1))
-	float LeftSideLayerFalloffFactor = 0.5f;
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = LandscapeSpline, meta = (UIMin = 0, ClampMin = 0, UIMax = 1, ClampMax = 1))
+	float GetLeftSideLayerFalloffFactor() { return LeftSideLayerFalloffFactor; }
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = LandscapeSpline, meta = (UIMin = 0, ClampMin = 0, UIMax = 1, ClampMax = 1))
-	float RightSideLayerFalloffFactor = 0.5f;
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = LandscapeSpline, meta = (UIMin = 0, ClampMin = 0, UIMax = 1, ClampMax = 1))
+	float GetRightSideLayerFalloffFactor() { return RightSideLayerFalloffFactor; }
 
 	/** Falloff at the start/end of the spline (if this point is a start or end point, otherwise ignored). */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=LandscapeSpline)
-	float EndFalloff;
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSpline)
+	float GetEndFalloff() {return EndFalloff;}
 	
 	/** Vertical offset of the spline segment mesh.  */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=LandscapeSpline, meta=(DisplayName="Mesh Vertical Offset"))
-	float SegmentMeshOffset;
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSpline, meta=(DisplayName="Mesh Vertical Offset"))
+	float GetSegmentMeshOffset() {return SegmentMeshOffset;}
 	
 	/** Whether or not the terrain will raise to the level of the spline if the spline is above the terrain. */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, BlueprintReadOnly, Category=LandscapeDeformation)
-	bool ShouldRaiseTerrain;
+	UFUNCTION(BlueprintCallable, BlueprintPure, BlueprintReadOnly, Category=LandscapeDeformation)
+	bool GetShouldRaiseTerrain() {return bRaiseTerrain;}
 
 	/** Whether or not the terrain will lower to the level of the spline if the spline is below the terrain.  */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, BlueprintReadOnly, Category=LandscapeDeformation)
-	bool ShouldLowerTerrain;
+	UFUNCTION(BlueprintCallable, BlueprintPure, BlueprintReadOnly, Category=LandscapeDeformation)
+	bool GetShouldLowerTerrain() {return bLowerTerrain;}
 
 	/** The mesh on this control point */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Mesh)
-	UStaticMesh* Mesh;
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category=Mesh)
+	UStaticMesh* GetMesh() {return Mesh;}
 
 	/** The mesh's material overrides.*/
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Mesh)
-	TArray<UMaterialInterface*> MaterialOverrides;
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category=Mesh)
+	TArray<UMaterialInterface*> GetMaterialOverrides() {return MaterialOverrides;}
 
 	/** Scale of the control point mesh */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Mesh)
-	FVector MeshScale;
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category=Mesh)
+	FVector GetMeshScale() {return MeshScale;}
 	
 	/** Whether the control point mesh is set to cast shadows */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, BlueprintReadOnly, Category=LandscapeSplineMeshes)
-	bool ShouldCastShadow;
+	UFUNCTION(BlueprintCallable, BlueprintPure, BlueprintReadOnly, Category=LandscapeSplineMeshes)
+	bool GetShouldCastShadow() {return bCastShadow;}
 
 	/** Whether the control point mesh is hidden in game */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, BlueprintReadOnly, Category = LandscapeSplineMeshes)
-	bool HiddenInGame;
+	UFUNCTION(BlueprintCallable, BlueprintPure, BlueprintReadOnly, Category = LandscapeSplineMeshes)
+	bool GetHiddenInGame() {return bHiddenInGame;}
+	
 
-
-	void Copy(ULandscapeSplineControlPoint* original)
-	{
-		// Copy properties
-		Location = original->Location;
-		Rotation = original->Rotation;
-		Width = original->Width;
-		LayerWidthRatio = original->LayerWidthRatio;
-		SideFalloff = original->SideFalloff;
-		LeftSideFalloffFactor = original->LeftSideFalloffFactor;
-		RightSideFalloffFactor = original->RightSideFalloffFactor;
-		LeftSideLayerFalloffFactor = original->LeftSideLayerFalloffFactor;
-		RightSideLayerFalloffFactor = original->RightSideLayerFalloffFactor;
-		EndFalloff = original->EndFalloff;
-		SegmentMeshOffset = original->SegmentMeshOffset;
-		ShouldRaiseTerrain = original->bRaiseTerrain == 1;
-		ShouldLowerTerrain = original->bLowerTerrain == 1;
-		Mesh = original->Mesh;
-		MaterialOverrides = original->MaterialOverrides;
-		MeshScale = original->MeshScale;
-		ShouldCastShadow = original->bCastShadow == 1;
-		HiddenInGame = original->bHiddenInGame == 1;
-		
-	}
+	void Init(FTransform worldTransform) {WorldTransform = worldTransform;};
 
 	UBlueprintableLandscapeSplineControlPoint() {}
+
+private:
+	FTransform WorldTransform = FTransform::Identity;
 	
 };
