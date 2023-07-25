@@ -1,59 +1,56 @@
 ﻿#pragma once
-#include "FSplineSegmentConnectionWrapper.h"
+#include "FBlueprintableSplineSegmentConnection.h"
 #include "FBlueprintableSplineMeshEntry.h"
 #include "LandscapeSplineSegment.h"
-#include "UBlueprintableLandscapeSplineSegment.generated.h"
+#include "USplineSegmentWrapper.generated.h"
 
 UCLASS()
-class USplineSegmentWrapper : public ULandscapeSplineSegment
+class USplineSegmentWrapper : public UObject
 {
 	GENERATED_BODY()
 public:
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSplineSegment)
-	TArray<FSplineSegmentConnectionWrapper> GetConnections()
-	{
-		TArray<FSplineSegmentConnectionWrapper> ret;
-		for (int i = 0; i < 2; i++)
-		{
-			auto connection = Connections[i];
-			// Since this is a struct, we need to copy it because blueprints don't allow getters on structs.
-			auto newConn = NewObject<FSplineSegmentConnectionWrapper>();
-			newConn->Copy(connection);
-			ret.Add(Connections[i]);
-		}
-		return ret;
-	};
-	
+	// ------- Getters -------
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeDeformation)
-	FName LayerName;
+	FName GetLayerName() {return _segment->LayerName;}
 
 	/** Whether or not the terrain will raise to the level of the spline if the spline is above the terrain. */
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeDeformation)
-	bool ShouldRaiseTerrain;
+	bool GetShouldRaiseTerrain() {return _segment->bRaiseTerrain;}
 
 	/** Whether or not the terrain will lower to the level of the spline if the spline is below the terrain.  */
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeDeformation)
-	bool ShouldLowerTerrain;
-
-	/** Spline meshes from this list are used in random order along the spline. */
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSplineMeshes)
-	TArray<FBlueprintableSplineMeshEntry> SplineMeshes;
-
+	bool GetShouldLowerTerrain() {return _segment->bLowerTerrain;}
 	
 	/** Whether the Spline Meshes is set to cast shadows */
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSplineMeshes)
-	bool ShouldCastShadow;
+	bool GetShouldCastShadow() {return _segment->bCastShadow;}
 
 	/** Whether the mesh is hidden in game */
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = LandscapeSplineMeshes)
-	bool HiddenInGame;
+	bool GetHiddenInGame() {return _segment->bHiddenInGame;}
 
-	void Init(FTransform worldOffset)
-	{
-		this->worldOffset = worldOffset;
-	}
+
+
+	
+	// ------- Stuff implemented in USplineSegmentWrapper.cpp -------
+	void Init(ULandscapeSplineSegment* original, FTransform worldOffset);
+	
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSplineSegment)
+	TArray<FBlueprintableSplineSegmentConnection> GetConnections(bool forceReload);
+
+	/** Spline meshes from this list are used in random order along the spline. */
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSplineMeshes)
+	TArray<FBlueprintableSplineMeshEntry> GetSplineMeshes(bool forceReload);
+
 	USplineSegmentWrapper() {}
 
+
 private:
-	FTransform worldOffset = FTransform::Identity;
+	ULandscapeSplineSegment* _segment = nullptr;
+	void ConvertConnections();
+	void ConvertMeshes();
+	FTransform WorldOffset = FTransform::Identity;
+	TArray<FBlueprintableSplineSegmentConnection> _connections;
+	TArray<FBlueprintableSplineMeshEntry> _meshes;
+
 };

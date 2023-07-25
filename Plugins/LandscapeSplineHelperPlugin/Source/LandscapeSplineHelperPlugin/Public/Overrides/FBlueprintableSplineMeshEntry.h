@@ -5,8 +5,8 @@
 USTRUCT(BlueprintType)
 struct FBlueprintableSplineMeshEntry
 {
+public:
 	GENERATED_BODY()
-
 	/** Mesh in use by the spline.*/
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=LandscapeSplineMeshEntry)
 	UStaticMesh* Mesh;
@@ -38,6 +38,8 @@ struct FBlueprintableSplineMeshEntry
 	/** The up axis for the spline mesh orientation */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=LandscapeSplineMeshEntry)
 	TEnumAsByte<ESplineMeshAxis::Type> UpAxis;
+
+	FBlueprintableSplineMeshEntry() {}
 	
 	FBlueprintableSplineMeshEntry(FLandscapeSplineMeshEntry original)
 	{
@@ -51,5 +53,4 @@ struct FBlueprintableSplineMeshEntry
 		ForwardAxis = original.ForwardAxis;
 		UpAxis = original.UpAxis;
 	}
-	FBlueprintableSplineMeshEntry() {}
 };

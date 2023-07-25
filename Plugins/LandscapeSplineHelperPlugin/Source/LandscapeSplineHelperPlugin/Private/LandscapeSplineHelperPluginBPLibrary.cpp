@@ -4,7 +4,7 @@
 
 #include "Landscape.h"
 #include "LandscapeSplinesComponent.h"
-#include "Overrides/UBlueprintableLandscapeSplineControlPoint.h"
+#include "Overrides/ULandscapeControlPointWrapper.h"
 #include "Overrides/USplineSegmentWrapper.h"
 
 ULandscapeSplineHelperPluginBPLibrary::ULandscapeSplineHelperPluginBPLibrary(
@@ -13,15 +13,15 @@ ULandscapeSplineHelperPluginBPLibrary::ULandscapeSplineHelperPluginBPLibrary(
 {
 }
 
-void ULandscapeSplineHelperPluginBPLibrary::GetLandscapeSpline(ULandscapeSpline& landscapeSpline, bool& success, const ALandscapeProxy* landscape)
+void ULandscapeSplineHelperPluginBPLibrary::GetLandscapeSpline(ULandscapeSpline*& landscapeSpline, bool& success, const ALandscapeProxy* landscape)
 {
 	if (landscape)
 	{
 		auto spline = landscape->GetSplinesComponent();
 		if (spline)
 		{
-			auto ls = NewObject<ULandscapeSpline>();
-			bool s = ls->Copy(spline);
+			landscapeSpline = NewObject<ULandscapeSpline>();
+			bool s = landscapeSpline->Init(spline, landscape->GetTransform());
 			success = s;
 			return;
 		}

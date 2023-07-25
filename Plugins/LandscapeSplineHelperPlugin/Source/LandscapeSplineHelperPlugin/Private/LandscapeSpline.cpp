@@ -4,7 +4,7 @@
 #include "LandscapeSpline.h"
 
 #include "Overrides/USplineSegmentWrapper.h"
-
+/*
 TArray<UBlueprintableLandscapeSplineControlPoint*> ULandscapeSpline::GetAllPoints()
 {
 	if(original)
@@ -16,16 +16,23 @@ TArray<UBlueprintableLandscapeSplineControlPoint*> ULandscapeSpline::GetAllPoint
 		ThrowBadPointerError();
 	}
 }
+*/
 
-bool ULandscapeSpline::Init(ULandscapeSplinesComponent* original, FTransform worldTransform)
+bool ULandscapeSpline::Init(ULandscapeSplinesComponent* orig, FTransform worldTransform)
 {
-	this->original = original;
+	this->original = orig;
+	// It's better to parse through right away so that it doesn't happen multiple times. Further down the hierarchy, lazy loading is preferred.
 	for(auto segment : original->GetSegments())
 	{
-		// This isn't pretty but it's efficient and lets us avoid making an entirely new UObject for every single segment
-		auto casted = static_cast<USplineSegmentWrapper*>(segment);
-		casted->Init(worldTransform);
-		Segments.Add(casted);
+		
+		auto splineSegment = NewObject<USplineSegmentWrapper>();
+		splineSegment->Init(segment, worldTransform);
+		Segments.Add(splineSegment);
+		auto connectedPoints = splineSegment->GetConnections(false);
+		for(auto point : connectedPoints)
+		{
+			ConnectedPoints.Add(point.ControlPoint);
+		}
 	}
 	return true;
 }
