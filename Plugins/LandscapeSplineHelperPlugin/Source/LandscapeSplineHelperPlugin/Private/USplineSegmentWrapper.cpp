@@ -32,22 +32,15 @@ void USplineSegmentWrapper::ConvertConnections()
 	_connections.Empty();
 	for (int i = 0; i < 2; i++)
 	{
-		_connections.Add(FBlueprintableSplineSegmentConnection(_segment->Connections[i], WorldOffset));
+		_connections.Add(FBlueprintableSplineSegmentConnection(GetOriginal()->Connections[i], WorldOffset));
 	}
 }
 
 void USplineSegmentWrapper::ConvertMeshes()
 {
-	if(_segment)
+	_meshes.Empty();
+	for (const auto mesh : GetOriginal()->SplineMeshes)
 	{
-		_meshes.Empty();
-		for (const auto mesh : _segment->SplineMeshes)
-		{
-			_meshes.Add(FBlueprintableSplineMeshEntry(mesh));
-		}
-	}
-	else
-	{
-		
+		_meshes.Add(FBlueprintableSplineMeshEntry(mesh));
 	}
 }

@@ -25,16 +25,13 @@ public:
 	TArray<USplineSegmentWrapper*> Segments;
 
 	/* Returns all points on the spline. Notice! In most use cases, you'd only want connected points (points that have a segment associated with them). If this is true in your case, use get ConnectedPoints instead.*/
-//	UFUNCTION(BlueprintCallable, BlueprintPure)
-//	TArray<UBlueprintableLandscapeSplineControlPoint*> GetAllPoints();
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	TArray<ULandscapeControlPointWrapper*> GetAllPoints();
 
 	/* Copies landscape spline to a blueprint readable format. Returns true if successful, false if error. */
 	bool Init(ULandscapeSplinesComponent* original, FTransform worldTransform);
 
-	ULandscapeSpline()
-	{
-		
-	}
+	ULandscapeSpline() { }
 
 private:
 	ULandscapeSplinesComponent* original;

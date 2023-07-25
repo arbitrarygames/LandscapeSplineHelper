@@ -4,19 +4,25 @@
 #include "LandscapeSpline.h"
 
 #include "Overrides/USplineSegmentWrapper.h"
-/*
-TArray<UBlueprintableLandscapeSplineControlPoint*> ULandscapeSpline::GetAllPoints()
+
+TArray<ULandscapeControlPointWrapper*> ULandscapeSpline::GetAllPoints()
 {
 	if(original)
 	{
-		
+		auto raw = original->GetControlPoints();
+		TArray<ULandscapeControlPointWrapper*> result;
+		for(auto point : raw)
+		{
+			auto wrapper = NewObject<ULandscapeControlPointWrapper>();
+			wrapper->Init(point, original->GetComponentTransform());
+			result.Add(wrapper);
+		}
+		return result;
 	}
-	else
-	{
-		ThrowBadPointerError();
-	}
+	ThrowBadPointerError();
+	return TArray<ULandscapeControlPointWrapper*>();
 }
-*/
+
 
 bool ULandscapeSpline::Init(ULandscapeSplinesComponent* orig, FTransform worldTransform)
 {
