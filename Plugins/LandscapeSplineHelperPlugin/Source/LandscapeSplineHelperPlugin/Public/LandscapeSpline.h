@@ -19,14 +19,10 @@ class LANDSCAPESPLINEHELPERPLUGIN_API ULandscapeSpline : public UObject
 	GENERATED_BODY()
 public: 
 	UPROPERTY(BlueprintReadWrite)
-	TArray<ULandscapeControlPointWrapper*> ConnectedPoints;
+	TArray<ULandscapeControlPointWrapper*> ControlPoints;
 
 	UPROPERTY(BlueprintReadWrite)
 	TArray<USplineSegmentWrapper*> Segments;
-
-	/* Returns all points on the spline. Notice! In most use cases, you'd only want connected points (points that have a segment associated with them). If this is true in your case, use get ConnectedPoints instead.*/
-	UFUNCTION(BlueprintCallable, BlueprintPure)
-	TArray<ULandscapeControlPointWrapper*> GetAllPoints();
 
 	/* Copies landscape spline to a blueprint readable format. Returns true if successful, false if error. */
 	bool Init(ULandscapeSplinesComponent* original, FTransform worldTransform);

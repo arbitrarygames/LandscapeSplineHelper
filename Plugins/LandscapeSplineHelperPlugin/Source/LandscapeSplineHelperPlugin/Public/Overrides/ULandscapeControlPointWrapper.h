@@ -18,11 +18,7 @@ public:
 
 	/** Location in world space */
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSpline)
-	FVector GetWorldLocation() {return WorldTransform.GetLocation() + original->Location;}
-
-	/** Rotation of tangent vector at this point (in world-space) */
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSpline)
-	FRotator GetWorldRotation() {return WorldTransform.GetRotation().Rotator() + original->Rotation;}
+	FVector GetWorldLocation() { return WorldTransform.TransformPositionNoScale(original->Location);}
 	
 	/** Half-Width of the spline at this point. */
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSpline, meta = (DisplayName = "Half-Width"))

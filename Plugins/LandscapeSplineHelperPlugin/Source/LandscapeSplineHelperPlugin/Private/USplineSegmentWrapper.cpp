@@ -1,13 +1,14 @@
 ﻿#include "Overrides/USplineSegmentWrapper.h"
 
-TArray<FBlueprintableSplineSegmentConnection> USplineSegmentWrapper::GetConnections(bool forceReload)
+void USplineSegmentWrapper::GetConnections(bool forceReload, FBlueprintableSplineSegmentConnection& connection1, FBlueprintableSplineSegmentConnection& connection2)
 {
 	// I don't think it's possible for the splines to change at runtime but just in case
 	if (forceReload)
 	{
 		ConvertConnections();
 	}
-	return _connections;
+	connection1 = _connections[0];
+	connection2 = _connections[1];
 }
 
 TArray<FBlueprintableSplineMeshEntry> USplineSegmentWrapper::GetSplineMeshes(bool forceReload)

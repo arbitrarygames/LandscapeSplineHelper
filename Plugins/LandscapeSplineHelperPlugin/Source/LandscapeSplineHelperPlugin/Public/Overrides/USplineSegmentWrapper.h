@@ -36,7 +36,7 @@ public:
 	void Init(ULandscapeSplineSegment* original, FTransform worldOffset);
 	
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSplineSegment)
-	TArray<FBlueprintableSplineSegmentConnection> GetConnections(bool forceReload);
+	void GetConnections(bool forceReload, FBlueprintableSplineSegmentConnection& connection1, FBlueprintableSplineSegmentConnection& connection2);
 
 	/** Spline meshes from this list are used in random order along the spline. */
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSplineMeshes)
