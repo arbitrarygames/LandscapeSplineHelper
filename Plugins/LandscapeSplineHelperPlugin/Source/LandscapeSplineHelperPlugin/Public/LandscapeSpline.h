@@ -18,10 +18,10 @@ class LANDSCAPESPLINEHELPERPLUGIN_API ULandscapeSpline : public UObject
 {
 	GENERATED_BODY()
 public: 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "Landscape Spline")
 	TArray<ULandscapeControlPointWrapper*> ControlPoints;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "Landscape Spline")
 	TArray<USplineSegmentWrapper*> Segments;
 
 	/* Copies landscape spline to a blueprint readable format. Returns true if successful, false if error. */

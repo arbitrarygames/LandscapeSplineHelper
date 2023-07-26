@@ -47,40 +47,8 @@ public:
 	/** Falloff at the start/end of the spline (if this point is a start or end point, otherwise ignored). */
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSpline)
 	float GetEndFalloff() {return original->EndFalloff;}
+
 	
-	/** Vertical offset of the spline segment mesh.  */
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSpline, meta=(DisplayName="Mesh Vertical Offset"))
-	float GetSegmentMeshOffset() {return original->SegmentMeshOffset;}
-	
-	/** Whether or not the terrain will raise to the level of the spline if the spline is above the terrain. */
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeDeformation)
-	bool GetShouldRaiseTerrain() {return original->bRaiseTerrain;}
-
-	/** Whether or not the terrain will lower to the level of the spline if the spline is below the terrain.  */
-	UFUNCTION(BlueprintCallable, BlueprintPure,  Category=LandscapeDeformation)
-	bool GetShouldLowerTerrain() {return original->bLowerTerrain;}
-
-	/** The mesh on this control point */
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category=Mesh)
-	UStaticMesh* GetMesh() {return original->Mesh;}
-
-	/** The mesh's material overrides.*/
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category=Mesh)
-	TArray<UMaterialInterface*> GetMaterialOverrides() {return original->MaterialOverrides;}
-
-	/** Scale of the control point mesh */
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category=Mesh)
-	FVector GetMeshScale() {return original->MeshScale;}
-	
-	/** Whether the control point mesh is set to cast shadows */
-	UFUNCTION(BlueprintCallable, BlueprintPure,  Category=LandscapeSplineMeshes)
-	bool GetShouldCastShadow() {return original->bCastShadow;}
-
-	/** Whether the control point mesh is hidden in game */
-	UFUNCTION(BlueprintCallable, BlueprintPure,  Category = LandscapeSplineMeshes)
-	bool GetHiddenInGame() {return original->bHiddenInGame;}
-	
-
 	void Init(ULandscapeSplineControlPoint* orig, FTransform worldTransform)
 	{
 		this->original = orig;

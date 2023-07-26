@@ -11,21 +11,12 @@ void USplineSegmentWrapper::GetConnections(bool forceReload, FBlueprintableSplin
 	connection2 = _connections[1];
 }
 
-TArray<FBlueprintableSplineMeshEntry> USplineSegmentWrapper::GetSplineMeshes(bool forceReload)
-{
-	if (forceReload)
-	{
-		ConvertMeshes();
-	}
-	return _meshes;
-}
 
 void USplineSegmentWrapper::Init(ULandscapeSplineSegment* original, FTransform worldOffset)
 {
 	_segment = original;
 	this->WorldOffset = worldOffset;
 	ConvertConnections();
-	ConvertMeshes();
 }
 
 void USplineSegmentWrapper::ConvertConnections()
@@ -37,11 +28,3 @@ void USplineSegmentWrapper::ConvertConnections()
 	}
 }
 
-void USplineSegmentWrapper::ConvertMeshes()
-{
-	_meshes.Empty();
-	for (const auto mesh : GetOriginal()->SplineMeshes)
-	{
-		_meshes.Add(FBlueprintableSplineMeshEntry(mesh));
-	}
-}
