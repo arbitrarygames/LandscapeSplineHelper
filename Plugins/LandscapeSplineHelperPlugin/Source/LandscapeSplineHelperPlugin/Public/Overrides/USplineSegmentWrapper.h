@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿// Copyright 2023 Arbitrary Games. All rights reserved.
+#pragma once
 #include "FBlueprintableSplineSegmentConnection.h"
 #include "LandscapeSplineSegment.h"
 #include "USplineSegmentWrapper.generated.h"
@@ -11,7 +12,7 @@ public:
 	// ------- Stuff implemented in USplineSegmentWrapper.cpp -------
 	void Init(ULandscapeSplineSegment* original, FTransform worldOffset);
 
-	
+	/* Get the connections on this segment. */
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSplineSegment)
 	void GetConnections(bool forceReload, FBlueprintableSplineSegmentConnection& connection1, FBlueprintableSplineSegmentConnection& connection2);
 	

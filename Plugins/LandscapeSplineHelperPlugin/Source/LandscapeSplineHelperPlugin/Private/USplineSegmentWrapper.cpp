@@ -1,4 +1,5 @@
-﻿#include "Overrides/USplineSegmentWrapper.h"
+﻿// Copyright 2023 Arbitrary Games. All rights reserved.
+#include "Overrides/USplineSegmentWrapper.h"
 
 void USplineSegmentWrapper::GetConnections(bool forceReload, FBlueprintableSplineSegmentConnection& connection1, FBlueprintableSplineSegmentConnection& connection2)
 {

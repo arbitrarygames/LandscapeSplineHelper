@@ -2,14 +2,14 @@
 	"FileVersion": 3,
 	"Version": 1,
 	"VersionName": "1.0",
-	"FriendlyName": "LandscapeSplineHelperPlugin",
+	"FriendlyName": "Landscape Spline Helper",
 	"Description": "Lets you access splines of a landscape in a blueprint.",
 	"Category": "Other",
 	"CreatedBy": "Arbitrary Games",
 	"CreatedByURL": "https://arbitrarygames.com",
-	"DocsURL": "",
-	"MarketplaceURL": "",
-	"SupportURL": "",
+	"DocsURL": "https://github.com/arbitrarygames/LandscapeSplineHelper/wiki/Documentation",
+	"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/7fd86ed5a1a14e15b315ed5fd7d6b016",
+	"SupportURL": "https://arbitrarygames.com/support",
 	"CanContainContent": true,
 	"IsBetaVersion": false,
 	"IsExperimentalVersion": false,
@@ -21,7 +21,11 @@
 		{
 			"Name": "LandscapeSplineHelperPlugin",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64"
+			]
+			
 		}
 	]
 }

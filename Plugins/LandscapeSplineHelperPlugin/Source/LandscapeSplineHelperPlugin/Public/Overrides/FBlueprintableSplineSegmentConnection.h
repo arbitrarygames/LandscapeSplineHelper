@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿// Copyright 2023 Arbitrary Games. All rights reserved.
+#pragma once
 #include "ULandscapeControlPointWrapper.h"
 #include "FBlueprintableSplineSegmentConnection.generated.h"
 
@@ -7,15 +8,15 @@ struct FBlueprintableSplineSegmentConnection
 {
 	GENERATED_BODY()
 
-	// Control point connected to this end of the segment
+	/* Control point connected to this end of the segment */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=LandscapeSplineSegmentConnection)
 	ULandscapeControlPointWrapper* ControlPoint;
 
-	// Tangent length of the connection
+	/* Tangent length of the connection */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=LandscapeSplineSegmentConnection)
 	float TangentLen;
 
-	// Socket on the control point that we are connected to
+	/* Socket on the control point that we are connected to */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=LandscapeSplineSegmentConnection)
 	FName SocketName;
 	

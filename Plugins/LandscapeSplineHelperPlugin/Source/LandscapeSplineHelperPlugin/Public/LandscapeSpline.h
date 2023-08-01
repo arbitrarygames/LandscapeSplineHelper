@@ -17,10 +17,12 @@ UCLASS(BlueprintType)
 class LANDSCAPESPLINEHELPERPLUGIN_API ULandscapeSpline : public UObject
 {
 	GENERATED_BODY()
-public: 
+public:
+	/* The control points that make up the spline. */
 	UPROPERTY(BlueprintReadWrite, Category = "Landscape Spline")
 	TArray<ULandscapeControlPointWrapper*> ControlPoints;
 
+	/* The segments that make up the spline. */
 	UPROPERTY(BlueprintReadWrite, Category = "Landscape Spline")
 	TArray<USplineSegmentWrapper*> Segments;
 

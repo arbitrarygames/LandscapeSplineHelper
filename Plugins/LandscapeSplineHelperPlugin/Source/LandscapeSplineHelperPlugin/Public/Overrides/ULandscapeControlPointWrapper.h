@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿// Copyright 2023 Arbitrary Games. All rights reserved.
+#pragma once
 #include "LandscapeSplineControlPoint.h"
 
 #include "ULandscapeControlPointWrapper.generated.h"
@@ -31,7 +32,7 @@ public:
 	/** Falloff at the sides of the spline at this point. */
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category=LandscapeSpline)
 	float GetSideFalloff() {return original->SideFalloff;}
-
+	
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = LandscapeSpline, meta=(UIMin = 0, ClampMin = 0, UIMax = 1, ClampMax = 1))
 	float GetLeftSideFalloffFactor() { return original->LeftSideFalloffFactor; }
 

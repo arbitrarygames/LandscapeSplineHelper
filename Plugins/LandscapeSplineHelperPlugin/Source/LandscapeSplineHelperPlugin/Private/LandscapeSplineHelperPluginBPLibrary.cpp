@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Copyright 2023 Arbitrary Games. All rights reserved.
 
 #include "LandscapeSplineHelperPluginBPLibrary.h"
 
