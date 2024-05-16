@@ -3,6 +3,7 @@
 #include "LandscapeSplineHelperPluginBPLibrary.h"
 
 #include "Landscape.h"
+#include "LandscapeSplineActor.h"
 #include "LandscapeSplinesComponent.h"
 #include "Overrides/ULandscapeControlPointWrapper.h"
 #include "Overrides/USplineSegmentWrapper.h"
@@ -17,14 +18,30 @@ void ULandscapeSplineHelperPluginBPLibrary::GetLandscapeSpline(ULandscapeSpline*
 {
 	if (landscape)
 	{
-		auto spline = landscape->GetSplinesComponent();
-		if (spline)
+		if (const auto Spline = landscape->GetSplinesComponent())
 		{
 			landscapeSpline = NewObject<ULandscapeSpline>();
-			bool s = landscapeSpline->Init(spline, landscape->GetTransform());
+			const bool s = landscapeSpline->Init(Spline, landscape->GetTransform());
 			success = s;
 			return;
 		}
 		success = false;
 	}
 }
+
+void ULandscapeSplineHelperPluginBPLibrary::WrapLandscapeSplineActor(ULandscapeSpline*& landscapeSpline, bool& success, const ALandscapeSplineActor* actor)
+{
+	if(actor)
+	{
+		if (const auto Spline = actor->GetSplinesComponent())
+		{
+			landscapeSpline = NewObject<ULandscapeSpline>();
+			const bool s = landscapeSpline->Init(Spline, actor->GetTransform());
+			success = s;
+			return;
+		}
+		success = false;
+	}
+}
+
+
