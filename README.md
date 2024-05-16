@@ -1,4 +1,9 @@
 # Landscape Spline Helper Plugin
+
+![license](https://img.shields.io/github/license/arbitrarygames/LandscapeSplineHelper) ![issues](https://img.shields.io/github/issues/arbitrarygames/LandscapeSplineHelper)  ![GitHub forks](https://img.shields.io/github/forks/arbitrarygames/LandscapeSplineHelper) ![GitHub Repo stars](https://img.shields.io/github/stars/arbitrarygames/LandscapeSplineHelper)
+
+
+
 An Unreal Engine 5.2 plugin that lets you access Unreal Engine landscape splines inside blueprint
 
 ## Getting Started
@@ -15,8 +20,3 @@ An Unreal Engine 5.2 plugin that lets you access Unreal Engine landscape splines
 # Documentation
 Go to our [Documentation Page](https://github.com/arbitrarygames/LandscapeSplineHelper/wiki/Documentation) for full documentation.
 
-
-
-
-
-![license](https://img.shields.io/github/license/arbitrarygames/LandscapeSplineHelper)
